@@ -64,6 +64,13 @@ namespace TjdHelper
             browserWindow.Show();
         }
 
+        //Ansible Windows Module
+        private void btnAnsibleWindowsModulePage_Click(object sender, RoutedEventArgs e)
+        {
+            BrowserWindow browserWindow = new BrowserWindow("https://docs.ansible.com/ansible/latest/collections/ansible/windows/index.html", "Ansible Windows Module");
+            browserWindow.Show();
+        }
+
         //Ansible笔记
         private void btnAnsibleNotePage_Click(object sender, RoutedEventArgs e)
         {
