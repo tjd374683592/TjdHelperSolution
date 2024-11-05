@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="TjdHelper.Views.WebSocketUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TjdHelper.Views" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="WebSocket Server" Grid.Row="0" Margin="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Margin="5" Grid.Column="0">
+                    <mah:ToggleSwitch IsOn="{Binding WebSocketSeverStateIsOn}" OffContent="WebSocket Server关闭" OnContent="WebSocket Server开启" Command="{Binding ServerStartStopCommand}"/>
+                    <ComboBox Margin="20 0 0 0" MinWidth="200" mah:TextBoxHelper.UseFloatingWatermark="True" mah:TextBoxHelper.Watermark="url"
+                            SelectedIndex="0" ItemsSource="{Binding IpAddrList, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding WebSocketUrl}">
+                    </ComboBox>
+
+                    <Button Content="清空log" MinWidth="80" Margin="20 0 0 0" Command="{Binding ClearLogCommand}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="5" Grid.Column="1">
+                    <Button Content="向所有客户端发送消息" MinWidth="125" Command="{Binding SendMessageCommand}"/>
+                </StackPanel>
+
+                <mah:MetroHeader Header="WebSocket Server Log:"  Grid.Row="1" Grid.Column="0" Margin="5">
+                    <TextBox  HorizontalContentAlignment="Stretch"
+                              mah:TextBoxHelper.UseFloatingWatermark="True"
+                              mah:TextBoxHelper.Watermark="Server Log："
+                              mah:TextBoxHelper.WatermarkAlignment="Left"
+                              SpellCheck.IsEnabled="True"
+                              ToolTip="Server Log"
+                             Text="{Binding ServerLog}"/>
+                </mah:MetroHeader>
+
+                <mah:MetroHeader Header="To Send:"  Grid.Row="1" Grid.Column="1" Margin="5">
+                    <TextBox  HorizontalContentAlignment="Stretch"
+                               mah:TextBoxHelper.UseFloatingWatermark="True"
+                               mah:TextBoxHelper.Watermark="Message To Send："
+                               mah:TextBoxHelper.WatermarkAlignment="Left"
+                               SpellCheck.IsEnabled="True"
+                               ToolTip="Message To Send"
+                              Text="{Binding MsgToSend}"/>
+                </mah:MetroHeader>
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</UserControl>

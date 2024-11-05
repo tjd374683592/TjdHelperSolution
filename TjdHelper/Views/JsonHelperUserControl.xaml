@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="TjdHelper.Views.JsonHelperUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TjdHelper.Views"
+             xmlns:model="clr-namespace:TjdHelper.ViewModels"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime" xmlns:local2="clr-namespace:TjdHelper.Behavior" xmlns:beh="http://schemas.microsoft.com/xaml/behaviors" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             mc:Ignorable="d" x:Name="JSONControl"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style TargetType="TreeViewItem">
+            <Setter Property="IsExpanded" 
+                Value="{Binding IsExpanded, 
+                        Mode=OneWay, 
+                        RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TreeViewItem}}}" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Expander Header="Json处理" IsExpanded="True" Grid.Row="0" Margin="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="2"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Button Content="校验/格式化Json" Command="{Binding CheckAndFormatJsonCommand}" Margin="0 5 5 5" MinWidth="55"/>
+                    <Button Content="压缩" Margin="0 5 5 5" Command="{Binding CompresseJsonCommand}" MinWidth="55"/>
+                    <Button Content="转义" Margin="0 5 5 5" Command="{Binding SerializeJsonCommand}" MinWidth="55"/>
+                    <Button Content="去转义" Margin="0 5 5 5" Command="{Binding DeserializeJsonCommand}" MinWidth="55"/>
+                    <Button Content="清空" Margin="0 5 5 5" Command="{Binding ClearJsonCommand}" MinWidth="55"/>
+                </StackPanel>
+
+                <GridSplitter Grid.Row="1" Height="2"/>
+
+                <avalonEdit:TextEditor x:Name="txtToConvertJson" MinHeight="50" Grid.Row="2" Margin="5 5 5 0"
+                      FontFamily="Consolas"
+                      FontSize="14"
+                      WordWrap ="True"
+                      LineNumbersForeground="#FF2B91AF"
+                      ShowLineNumbers="True">
+                    <beh:Interaction.Behaviors>
+                        <local2:AvalonEditBehaviour InputText="{Binding StrJsonPrase, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    </beh:Interaction.Behaviors>
+                    <avalonEdit:TextEditor.Options>
+                        <avalonEdit:TextEditorOptions ShowSpaces="True" WordWrapIndentation="4" InheritWordWrapIndentation="true">
+                            <avalonEdit:TextEditorOptions.ColumnRulerPosition>
+                                <system:Int32>10</system:Int32>
+                            </avalonEdit:TextEditorOptions.ColumnRulerPosition>
+                        </avalonEdit:TextEditorOptions>
+                    </avalonEdit:TextEditor.Options>
+                </avalonEdit:TextEditor>
+
+            </Grid>
+        </Expander>
+
+        <Expander Header="Json树展示" IsExpanded="True" Grid.Row="1" Margin="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="2"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 5 5 5">
+                    <Button Content="展示Json树" Margin="0 5 5 5" Command="{Binding ShowJsonTreeCommand}"/>
+                </StackPanel>
+
+                <GridSplitter Grid.Row="1" Height="2"/>
+
+                <TreeView ItemsSource="{Binding Nodes}" Grid.Row="5" HorizontalAlignment="Left" x:Name="treeView" FontSize="15" MouseRightButtonDown="TreeView_MouseRightButtonDown">
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type model:JsonNode}" ItemsSource="{Binding Children}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock Text=": " />
+                                <TextBlock Text="{Binding Value}" />
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+
+                       
+                    </TreeView.Resources>
+                </TreeView>
+            </Grid>
+        </Expander>
+    </Grid>
+
+</UserControl>

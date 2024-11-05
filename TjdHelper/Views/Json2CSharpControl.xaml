@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="TjdHelper.Views.Json2CSharpControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             xmlns:beh="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:TjdHelper.Behavior"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style BasedOn="{StaticResource MahApps.Styles.MetroHeader}" TargetType="{x:Type mah:MetroHeader}">
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" UseLayoutRounding="True">
+                                <TextBlock Margin="0 4 0 4" Text="{Binding}" />
+                                <Separator />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="2">
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding JsonToCSharpCommand}" Content="Json转C#"/>
+                <Button Command="{Binding CompileCSharpCommand}" Content="C#代码编译" Margin="10 0 0 0"/>
+            </StackPanel>
+        </Grid>
+
+        <GroupBox Header="Json" Margin="2" Grid.Row="1">
+            <mah:MetroHeader Header="Json字符串">
+                <avalonEdit:TextEditor
+            x:Name="txtJson"                        
+            Grid.Row="0"
+            FontFamily="Consolas"
+            FontSize="14"
+            WordWrap ="True"
+            LineNumbersForeground="#FF2B91AF"
+            ShowLineNumbers="True" Margin="5 0 0 0 " MinHeight="100">
+                    <beh:Interaction.Behaviors>
+                        <local:AvalonEditBehaviour InputText="{Binding StrJson, Mode=TwoWay}"/>
+                    </beh:Interaction.Behaviors>
+                    <avalonEdit:TextEditor.Options>
+                        <avalonEdit:TextEditorOptions ShowSpaces="True" WordWrapIndentation="4" InheritWordWrapIndentation="true">
+                            <avalonEdit:TextEditorOptions.ColumnRulerPosition>
+                                <system:Int32>10</system:Int32>
+                            </avalonEdit:TextEditorOptions.ColumnRulerPosition>
+                        </avalonEdit:TextEditorOptions>
+                    </avalonEdit:TextEditor.Options>
+                </avalonEdit:TextEditor>
+            </mah:MetroHeader>
+        </GroupBox>
+
+        <GroupBox Header="C#" Margin="2" Grid.Row="2">
+            <mah:MetroHeader Header="C#代码">
+                <avalonEdit:TextEditor
+                            x:Name="txtCSharp"                        
+                            Grid.Row="0"
+                            FontFamily="Consolas"
+                            FontSize="14"
+                            WordWrap ="True"
+                            LineNumbersForeground="#FF2B91AF"
+                            ShowLineNumbers="True" Margin="5 0 0 0 " MinHeight="100"
+                            SyntaxHighlighting="C#">
+                    <beh:Interaction.Behaviors>
+                        <local:AvalonEditBehaviour InputText="{Binding StrCSharp, Mode=TwoWay}"/>
+                    </beh:Interaction.Behaviors>
+                    <avalonEdit:TextEditor.Options>
+                        <avalonEdit:TextEditorOptions ShowSpaces="True" WordWrapIndentation="4" InheritWordWrapIndentation="true">
+                            <avalonEdit:TextEditorOptions.ColumnRulerPosition>
+                                <system:Int32>10</system:Int32>
+                            </avalonEdit:TextEditorOptions.ColumnRulerPosition>
+                        </avalonEdit:TextEditorOptions>
+                    </avalonEdit:TextEditor.Options>
+                </avalonEdit:TextEditor>
+            </mah:MetroHeader>
+        </GroupBox>
+    </Grid>
+</UserControl>

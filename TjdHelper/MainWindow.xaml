@@ -1,0 +1,153 @@
+﻿<mah:MetroWindow x:Class="TjdHelper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:pages="clr-namespace:TjdHelper.Views"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        x:Name="MainWin"
+        mc:Ignorable="d"
+        Title="Tjd Helper" Height="1000" Width="1520" WindowStartupLocation="CenterScreen" GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+        ResizeMode="CanResizeWithGrip" Icon="/Resources/images/app.ico">
+
+    <!--左上角角标-->
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands>
+            <Button ToolTip="Design By Tjd">
+                <iconPacks:PackIconModern Width="22"
+                                  Height="22"
+                                  Kind="LanguageCsharp" />
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
+
+    <!--弹窗提示信息-->
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl x:Name="flyoutsControl">
+            <mah:Flyout x:Name="TopFlyout"
+                        IsOpen="{Binding ShowFlyOut}"
+                        Height="150"
+                        Header="Info:"
+                        Position="Top">
+                <StackPanel Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding LogInfo}" FontSize="15" TextWrapping="Wrap"/>
+                </StackPanel>
+            </mah:Flyout>
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
+
+    <!--布局-->
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="131*" />
+            <ColumnDefinition Width="26*"/>
+            <ColumnDefinition Width="1363*"/>
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!--顶部栏-->
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+            <StackPanel Orientation="Horizontal">
+                <!-- 圆形图片按钮 -->
+                <Button Width="40" Height="40" Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Image gif:ImageBehavior.AnimatedSource="{Binding UserImage}" Width="30" Height="30" Stretch="UniformToFill">
+                                    <Image.Clip>
+                                        <EllipseGeometry RadiusX="15" RadiusY="15" Center="15 15"/>
+                                    </Image.Clip>
+                                </Image>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Menu Grid.Column="1" VerticalAlignment="Center">
+                    <MenuItem Header="Ansible">
+                        <MenuItem Header="Ansible社区文档" Click="btnAnsibleDocPage_Click"/>
+                        <MenuItem Header="Ansible笔记" Click="btnAnsibleNotePage_Click"/>
+                    </MenuItem>
+                    <MenuItem Header="AI" >
+                        <MenuItem Header="ChatGPT" Click="btnChatGPT_Click"/>
+                        <MenuItem Header="豆包" Click="btnDouBao_Click"/>
+                    </MenuItem>
+                </Menu>
+            </StackPanel>
+        </Grid>
+
+        <!--中间栏-->
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,3" Grid.RowSpan="2">
+            <mah:MetroAnimatedSingleRowTabControl x:Name="MainTabControl">
+                <TabItem Header="工具">
+                    <ScrollViewer Margin="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <pages:ToolsControl />
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Json工具">
+                    <ScrollViewer Margin="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <pages:JsonHelperUserControl />
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Json->C#">
+                    <ScrollViewer Margin="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <pages:Json2CSharpControl />
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="YAML">
+                    <ScrollViewer Margin="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <pages:YamlControl />
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="JavaScript">
+                    <ScrollViewer Margin="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <pages:JsUserControl />
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="WebSocket">
+                    <ScrollViewer Margin="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <pages:WebSocketUserControl />
+                    </ScrollViewer>
+                </TabItem>
+            </mah:MetroAnimatedSingleRowTabControl>
+        </Grid>
+
+        <!--底部栏-->
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+            <mah:TransitioningContentControl x:Name="customTransitioning"
+                                 Width="Auto" HorizontalAlignment="Right"
+                                 Height="Auto"
+                                 Margin="0 0 12 3"
+                                 Transition="Custom">
+                <mah:TransitioningContentControl.CustomVisualStates>
+                    <VisualState x:Name="CustomTransition">
+                        <Storyboard>
+                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                               Storyboard.TargetName="CurrentContentPresentationSite"
+                                               Storyboard.TargetProperty="(UIElement.Opacity)">
+                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0" />
+                                <SplineDoubleKeyFrame KeyTime="00:00:00.700" Value="1" />
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                               Storyboard.TargetName="PreviousContentPresentationSite"
+                                               Storyboard.TargetProperty="(UIElement.Opacity)">
+                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+                                <SplineDoubleKeyFrame KeyTime="00:00:00.700" Value="0" />
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                </mah:TransitioningContentControl.CustomVisualStates>
+            </mah:TransitioningContentControl>
+        </Grid>
+    </Grid>
+
+</mah:MetroWindow>
