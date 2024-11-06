@@ -1,5 +1,8 @@
-﻿using System;
+﻿using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+using ICSharpCode.AvalonEdit.Highlighting;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 using TjdHelper.ViewModels;
 
 namespace TjdHelper.Views
@@ -24,6 +28,21 @@ namespace TjdHelper.Views
         public YamlControl()
         {
             InitializeComponent();
+
+            // 从 XML 文件加载语法定义
+            IHighlightingDefinition customHighlighting;
+            using (Stream s = typeof(MainWindow).Assembly.GetManifestResourceStream("TjdHelper.Resources.json.xshd"))
+            {
+                using (XmlReader reader = new XmlTextReader(s))
+                {
+                    customHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
+                }
+            }
+
+            // 将语法定义分配给 TextEditor 控件
+            txtJson.SyntaxHighlighting = customHighlighting;
+            txtYaml.SyntaxHighlighting = customHighlighting;
+            txtYAMLConverted.SyntaxHighlighting = customHighlighting;
 
             YamlControlViewModel viewModel = new YamlControlViewModel();
             this.DataContext = viewModel;
