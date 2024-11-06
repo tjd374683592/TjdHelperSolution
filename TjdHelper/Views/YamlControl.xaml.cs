@@ -30,19 +30,31 @@ namespace TjdHelper.Views
             InitializeComponent();
 
             // 从 XML 文件加载语法定义
-            IHighlightingDefinition customHighlighting;
-            using (Stream s = typeof(MainWindow).Assembly.GetManifestResourceStream("TjdHelper.Resources.json.xshd"))
+            IHighlightingDefinition customHighlightingYaml;
+            using (Stream s = typeof(MainWindow).Assembly.GetManifestResourceStream("TjdHelper.Resources.yaml.xshd"))
             {
                 using (XmlReader reader = new XmlTextReader(s))
                 {
-                    customHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
+                    customHighlightingYaml = HighlightingLoader.Load(reader, HighlightingManager.Instance);
                 }
             }
 
             // 将语法定义分配给 TextEditor 控件
-            txtJson.SyntaxHighlighting = customHighlighting;
-            txtYaml.SyntaxHighlighting = customHighlighting;
-            txtYAMLConverted.SyntaxHighlighting = customHighlighting;
+            txtYaml.SyntaxHighlighting = customHighlightingYaml;
+            txtYAMLConverted.SyntaxHighlighting = customHighlightingYaml;
+
+            IHighlightingDefinition customHighlightingJson;
+            using (Stream s = typeof(MainWindow).Assembly.GetManifestResourceStream("TjdHelper.Resources.json.xshd"))
+            {
+                using (XmlReader reader = new XmlTextReader(s))
+                {
+                    customHighlightingJson = HighlightingLoader.Load(reader, HighlightingManager.Instance);
+                }
+            }
+
+            // 将语法定义分配给 TextEditor 控件
+            txtJson.SyntaxHighlighting = customHighlightingJson;
+            
 
             YamlControlViewModel viewModel = new YamlControlViewModel();
             this.DataContext = viewModel;

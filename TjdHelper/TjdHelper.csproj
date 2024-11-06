@@ -14,6 +14,7 @@
 		<None Remove="Resources\images\test.jpg" />
 		<None Remove="Resources\images\userimage.gif" />
 		<None Remove="Resources\json.xshd" />
+		<None Remove="Resources\yaml.xshd" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -51,6 +52,9 @@
 		<Resource Include="Resources\images\userimage.gif">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
+		<EmbeddedResource Include="Resources\yaml.xshd">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
