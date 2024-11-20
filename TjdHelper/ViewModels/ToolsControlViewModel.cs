@@ -21,6 +21,7 @@ using ZXing.QrCode;
 using ZXing.Windows.Compatibility;
 using System.Windows.Media.Imaging;
 using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace TjdHelper.ViewModels
 {
@@ -44,6 +45,8 @@ namespace TjdHelper.ViewModels
             CreateQRCodeCommand = new RelayCommand(CreateQRCodeCommandExecute);
             ClearQRCodeCommand = new RelayCommand(ClearQRCodeCommandExecute);
             DownloadQRCodeCommand = new RelayCommand(DownloadQRCodeCommandExecute);
+            DecodeQRCodeCommand = new RelayCommand(DecodeQRCodeCommandExecute);
+            ChooseQRCodePathCommand = new RelayCommand(ChooseQRCodePathCommandExecute);
         }
 
         public ICommand ConvertToTimeCommand { get; private set; }
@@ -55,6 +58,8 @@ namespace TjdHelper.ViewModels
         public ICommand CreateQRCodeCommand { get; set; }
         public ICommand ClearQRCodeCommand { get; set; }
         public ICommand DownloadQRCodeCommand { get; set; }
+        public ICommand DecodeQRCodeCommand { get; set; }
+        public ICommand ChooseQRCodePathCommand { get; set; }
 
         /// <summary>
         /// 绑定时间转换TimeHelper User Control中的txtTime控件WaterMark属性值
@@ -314,6 +319,42 @@ namespace TjdHelper.ViewModels
         }
 
         /// <summary>
+        /// 二维码解码内容
+        /// </summary>
+        private string _qRImageContent;
+
+        public string QRImageContent
+        {
+            get { return _qRImageContent; }
+            set
+            {
+                if (_qRImageContent != value)
+                {
+                    _qRImageContent = value;
+                    OnPropertyChanged(nameof(QRImageContent));
+                }
+            }
+        }
+
+        /// <summary>
+        /// 二维码解码路径
+        /// </summary>
+        private string _decodeQRImagePath;
+
+        public string DecodeQRImagePath
+        {
+            get { return _decodeQRImagePath; }
+            set
+            {
+                if (_decodeQRImagePath != value)
+                {
+                    _decodeQRImagePath = value;
+                    OnPropertyChanged(nameof(DecodeQRImagePath));
+                }
+            }
+        }
+
+        /// <summary>
         /// 时间戳转换时间
         /// </summary>
         /// <param name="parameter"></param>
@@ -459,6 +500,12 @@ namespace TjdHelper.ViewModels
         {
             // 构建文件夹的完整路径
             string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"QRImage");
+            // 判断文件夹是否存在
+            if (!Directory.Exists(folderPath))
+            {
+                // 如果不存在，则创建文件夹
+                Directory.CreateDirectory(folderPath);
+            }
             //构建文件名
             string fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + Guid.NewGuid() + ".png";
             // 构建完整的文件路径
@@ -506,6 +553,65 @@ namespace TjdHelper.ViewModels
         {
             this.QRCodeStr = "";
             this.QRImage = null;
+        }
+
+        /// <summary>
+        /// 二维码解码
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void DecodeQRCodeCommandExecute(object obj)
+        {
+            try
+            {
+                // 加载二维码图片
+                Bitmap bitmap = new Bitmap(DecodeQRImagePath);
+
+                // 创建ZXing解码器
+                BarcodeReader reader = new BarcodeReader();
+
+                // 解码二维码
+                var result = reader.Decode(bitmap);
+
+                // 检查解码结果
+                if (result != null)
+                {
+                    QRImageContent = result.Text;
+                }
+                else
+                {
+                    ((MainWindowViewModel)Application.Current.MainWindow.DataContext).ShowFlyOut = true;
+                    ((MainWindowViewModel)Application.Current.MainWindow.DataContext).LogInfo = "无法解码二维码，请确认图片是否正确";
+                }
+            }
+            catch (Exception ex)
+            {
+                ((MainWindowViewModel)Application.Current.MainWindow.DataContext).ShowFlyOut = true;
+                ((MainWindowViewModel)Application.Current.MainWindow.DataContext).LogInfo = ex.Message;
+            }
+        }
+
+        /// <summary>
+        /// 选择二维码路径
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void ChooseQRCodePathCommandExecute(object obj)
+        {
+            // 创建文件选择对话框
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Title = "请选择文件",       // 对话框标题
+                Filter = "所有文件|*.*",  // 文件过滤器
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) // 初始目录
+            };
+
+            // 显示对话框并判断用户是否选择了文件
+            if (openFileDialog.ShowDialog() == true)
+            {
+                // 获取文件路径
+                DecodeQRImagePath = openFileDialog.FileName;
+            }
         }
     }
 }

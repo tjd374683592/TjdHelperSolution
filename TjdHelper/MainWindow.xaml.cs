@@ -57,6 +57,14 @@ namespace TjdHelper
             this.customTransitioning.Content = new TextBlock { Text = dateTime.ToString("yyyy-MM-dd HH:mm:ss"), SnapsToDevicePixels = true };
         }
 
+        //Ansible中文权威指南
+        private void btnAnsibleCNPage_Click(object sender, RoutedEventArgs e)
+        {
+            BrowserWindow browserWindow = new BrowserWindow("http://ansible.com.cn/index.html", "Ansible中文权威指南");
+            browserWindow.Show();
+        }
+
+
         //Ansible社区文档
         private void btnAnsibleDocPage_Click(object sender, RoutedEventArgs e)
         {

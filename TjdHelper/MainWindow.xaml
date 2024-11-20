@@ -74,6 +74,7 @@
 
                 <Menu Grid.Column="1" VerticalAlignment="Center">
                     <MenuItem Header="Ansible">
+                        <MenuItem Header="Ansible中文权威指南" Click="btnAnsibleCNPage_Click"/>
                         <MenuItem Header="Ansible社区文档" Click="btnAnsibleDocPage_Click"/>
                         <MenuItem Header="Ansible Windows Module" Click="btnAnsibleWindowsModulePage_Click"/>
                         <MenuItem Header="Ansible笔记" Click="btnAnsibleNotePage_Click"/>

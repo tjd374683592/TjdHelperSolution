@@ -31,6 +31,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Expander Header="时间戳转换" IsExpanded="True" Grid.Row="0" Margin="2">
             <Grid>
@@ -136,6 +137,39 @@
                               Text="{Binding QRImageSize}"/>
                 </StackPanel>
                 <Image Source="{Binding QRImage,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="1" MaxWidth="250" MaxHeight="250"/>
+            </Grid>
+        </Expander>
+
+        <Expander Header="二维码解码" IsExpanded="True" Grid.Row="4" Margin="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 5 0 0">
+                    <Button Content="解码" Margin="5 0 0 0" Command="{Binding DecodeQRCodeCommand}" MaxWidth="300"/>
+                    <Button Content="二维码选择" Margin="5 0 0 0" Command="{Binding ChooseQRCodePathCommand}" MaxWidth="300"/>
+                    <TextBox Margin="5 0 0 0 " MinWidth="500"
+                      HorizontalContentAlignment="Stretch"
+                      mah:TextBoxHelper.ClearTextButton="True"
+                      mah:TextBoxHelper.UseFloatingWatermark="True"
+                      mah:TextBoxHelper.Watermark="二维码Path："
+                      mah:TextBoxHelper.WatermarkAlignment="Left"
+                      SpellCheck.IsEnabled="True"
+                      ToolTip="二维码Path"
+                      Text="{Binding DecodeQRImagePath}"/>
+                    
+                </StackPanel>
+                <TextBox Margin="5" MinWidth="50"
+                              HorizontalContentAlignment="Stretch"
+                              mah:TextBoxHelper.ClearTextButton="True"
+                              mah:TextBoxHelper.UseFloatingWatermark="True"
+                              mah:TextBoxHelper.Watermark="二维码内容："
+                              mah:TextBoxHelper.WatermarkAlignment="Left"
+                              SpellCheck.IsEnabled="True"
+                              ToolTip="二维码内容"
+                              Text="{Binding QRImageContent}"  Grid.Row="1" />
             </Grid>
         </Expander>
     </Grid>
