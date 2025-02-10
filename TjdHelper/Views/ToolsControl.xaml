@@ -79,7 +79,38 @@
             </Grid>
         </Expander>
 
-        <Expander Header="Url UrlEncode/Decode" IsExpanded="True" Grid.Row="1" Margin="2">
+        <Expander Header="Windows Error Code" IsExpanded="True" Grid.Row="1" Margin="2">
+            <StackPanel>
+                <mah:MetroHeader Header="Error Code">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Margin="5 0 0 0 "
+                      HorizontalContentAlignment="Stretch"
+                      mah:TextBoxHelper.ClearTextButton="True"
+                      mah:TextBoxHelper.UseFloatingWatermark="True"
+                      mah:TextBoxHelper.Watermark="Example: 5 Or 0x5"
+                      mah:TextBoxHelper.WatermarkAlignment="Left"
+                      SpellCheck.IsEnabled="True"
+                      ToolTip="Url"
+                     Text="{Binding StrWinErrorCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Content="查询" Margin="5 0 0 0" Command="{Binding CheckWinErrorDetailsCommand}"/>
+                        <Button Content="清空" Margin="5 0 0 0" Command="{Binding WinErrorAndDetailsClearCommand}"/>
+                    </StackPanel>
+
+                </mah:MetroHeader>
+                <mah:MetroHeader Header="Error Details">
+                    <TextBox Margin="5 0 0 0 "
+              HorizontalContentAlignment="Stretch"
+              mah:TextBoxHelper.ClearTextButton="True"
+              mah:TextBoxHelper.UseFloatingWatermark="True"
+              mah:TextBoxHelper.WatermarkAlignment="Left"
+              SpellCheck.IsEnabled="True"
+              ToolTip="Url Encord"
+             Text="{Binding StrWinErrorCodeDetails, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </mah:MetroHeader>
+            </StackPanel>
+        </Expander>
+
+        <Expander Header="Url UrlEncode/Decode" IsExpanded="True" Grid.Row="2" Margin="2">
             <StackPanel>
                 <mah:MetroHeader Header="Url">
                     <TextBox Margin="5 0 0 0 " Height="55" 

@@ -14,12 +14,20 @@
 		<None Remove="Resources\images\test.jpg" />
 		<None Remove="Resources\images\userimage.gif" />
 		<None Remove="Resources\json.xshd" />
+		<None Remove="Resources\Tools\errorCodes.json" />
+		<None Remove="Resources\Tools\Err_6.4.5.exe" />
 		<None Remove="Resources\yaml.xshd" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<EmbeddedResource Include="Resources\CSharp-Mode.xshd">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Resources\Tools\errorCodes.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Resources\Tools\Err_6.4.5.exe">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<Resource Include="Resources\images\app.ico">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -58,7 +66,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Converter\" />
-	  <Folder Include="Models\" />
 	</ItemGroup>
 
 </Project>
