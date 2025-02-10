@@ -662,8 +662,6 @@ namespace TjdHelper.ViewModels
         /// <exception cref="NotImplementedException"></exception>
         private void CheckWinErrorDetailsCommandExecute(object obj)
         {
-            StrWinErrorCode = StrWinErrorCode.Trim();
-
             string currentPath = AppDomain.CurrentDomain.BaseDirectory;
             string exePath = Path.Combine(currentPath, @"Resources\Tools\Err_6.4.5.exe");
             string errorCodesJsonFilePath = Path.Combine(currentPath, @"Resources\Tools\errorCodes.json");
@@ -701,7 +699,7 @@ namespace TjdHelper.ViewModels
                     // 查找对应的错误信息
                     WinErrorInfo errorJsonInfo = new WinErrorInfo();
                     //null的时候赋值为0
-                    StrWinErrorCode = string.IsNullOrEmpty(StrWinErrorCode) ? "0" : StrWinErrorCode;
+                    StrWinErrorCode = string.IsNullOrEmpty(StrWinErrorCode) ? "0" : StrWinErrorCode.Trim();
 
                     //判断用户输入的是10进制还是16进制
                     if (DecimalHelper.IsDecimal(StrWinErrorCode))
