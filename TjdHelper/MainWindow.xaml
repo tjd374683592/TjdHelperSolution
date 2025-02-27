@@ -58,7 +58,7 @@
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
             <StackPanel Orientation="Horizontal">
                 <!-- 圆形图片按钮 -->
-                <Button Width="40" Height="40" Cursor="Hand">
+                <!--<Button Width="40" Height="40" Cursor="Hand">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid>
@@ -70,7 +70,7 @@
                             </Grid>
                         </ControlTemplate>
                     </Button.Template>
-                </Button>
+                </Button>-->
 
                 <Menu Grid.Column="1" VerticalAlignment="Center">
                     <MenuItem Header="Ansible">
@@ -93,6 +93,11 @@
                 <TabItem Header="工具">
                     <ScrollViewer Margin="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                         <pages:ToolsControl />
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Debug">
+                    <ScrollViewer Margin="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <pages:DebugControl />
                     </ScrollViewer>
                 </TabItem>
                 <TabItem Header="Json工具">

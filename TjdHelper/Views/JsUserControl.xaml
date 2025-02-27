@@ -7,6 +7,23 @@
              xmlns:system="clr-namespace:System;assembly=System.Runtime" xmlns:local="clr-namespace:TjdHelper.Behavior" xmlns:beh="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              d:DesignHeight="450" d:DesignWidth="800" x:Name="JSControl">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style BasedOn="{StaticResource MahApps.Styles.MetroHeader}" TargetType="{x:Type mah:MetroHeader}">
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" UseLayoutRounding="True">
+                                <TextBlock Margin="0 4 0 4" Text="{Binding}" />
+                                <Separator />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
         <GroupBox Header="Json" Margin="2">
 

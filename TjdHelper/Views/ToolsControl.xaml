@@ -95,7 +95,6 @@
                         <Button Content="查询" Margin="5 0 0 0" Command="{Binding CheckWinErrorDetailsCommand}"/>
                         <Button Content="清空" Margin="5 0 0 0" Command="{Binding WinErrorAndDetailsClearCommand}"/>
                     </StackPanel>
-
                 </mah:MetroHeader>
                 <mah:MetroHeader Header="Error Details">
                     <TextBox Margin="5 0 0 0 "
