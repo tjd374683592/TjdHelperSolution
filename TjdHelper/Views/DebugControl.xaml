@@ -59,7 +59,7 @@
             </StackPanel>
         </Expander>
 
-        <Expander Header="Calc File Size By Hex Address" IsExpanded="True" Grid.Row="1" Margin="2">
+        <Expander Header="Calc Virutal Size By Hex Address" IsExpanded="True" Grid.Row="1" Margin="2">
             <StackPanel>
                 <mah:MetroHeader Header="Address">
                     <StackPanel Orientation="Horizontal">
@@ -94,7 +94,7 @@ Text="{Binding StrEndAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
  SpellCheck.IsEnabled="True"
  ToolTip="Url"
 Text="{Binding StrVSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <Button Content="清空" Margin="5 0 0 0" Command="{Binding WinErrorAndDetailsClearCommand}"/>
+                        <Button Content="清空" Margin="5 0 0 0" Command="{Binding CalcResultClearCommand}"/>
                     </StackPanel>
                 </mah:MetroHeader>
             </StackPanel>
